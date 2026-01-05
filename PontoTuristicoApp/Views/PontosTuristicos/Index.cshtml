@@ -1,0 +1,21 @@
+@model IEnumerable<PontoTuristicoApp.Models.PontoTuristico>
+
+<h2>Pontos Turísticos</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Localização</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Localizacao</td>
+            </tr>
+        }
+    </tbody>
+</table>
