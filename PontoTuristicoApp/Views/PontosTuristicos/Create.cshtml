@@ -1,0 +1,83 @@
+@model PontoTuristicoApp.Models.PontoTuristico
+
+<h2>Cadastrar Ponto Turístico</h2>
+
+<form asp-action="Create" method="POST">
+    <div>
+        <label>Nome</label><br />
+        <input asp-for="Nome" />
+        <span asp-validation-for="Nome"></span>
+    </div>
+
+    <div>
+        <label>Descrição</label><br />
+        <input asp-for="Descricao" maxlength="100" />
+        <span asp-validation-for="Descricao"></span>
+    </div>
+
+    <div>
+        <label>Localização</label><br />
+        <input asp-for="Localizacao" />
+        <span asp-validation-for="Localizacao"></span>
+    </div>
+
+    <div>
+        <label>Estado</label><br />
+        <select asp-for="Estado" id="estadoSelect">
+            <option value="">Selecione</option>
+
+            @foreach (var estado in ViewBag.Estados)
+            {
+                <option value="@estado.Sigla">
+                    @estado.Nome
+                </option>
+            }
+        </select>
+        <span asp-validation-for="Estado"></span>
+    </div>
+
+    <div>
+        <label>Cidade</label><br />
+        <select asp-for="Cidade" id="cidadeSelect">
+            <option value="">Selecione a cidade</option>
+        </select>
+        <span asp-validation-for="Cidade"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a asp-action="Index">Voltar para a lista</a>
+
+
+<script>
+    document.getElementById("estadoSelect").addEventListener("change", function () {
+        const estado = this.value;
+        const cidadeSelect = document.getElementById("cidadeSelect");
+
+        cidadeSelect.innerHTML = '<option value="">Carregando...</option>';
+
+        if (!estado) {
+            cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
+            return;
+        }
+
+        fetch(`/PontosTuristicos/GetCidades?estado=${estado}`)
+            .then(response => response.json())
+            .then(data => {
+                cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
+
+                data.forEach(cidade => {
+                    const option = document.createElement("option");
+                    option.value = cidade.nome;
+                    option.text = cidade.nome;
+                    cidadeSelect.appendChild(option);
+                });
+            })
+            .catch(() => {
+                cidadeSelect.innerHTML = '<option value="">Erro ao carregar cidades</option>';
+            });
+    });
+</script>

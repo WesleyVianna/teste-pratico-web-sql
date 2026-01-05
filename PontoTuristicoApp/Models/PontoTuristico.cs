@@ -6,22 +6,11 @@ namespace PontoTuristicoApp.Models
     public class PontoTuristico
     {
         public int Id { get; set; }
-
-        [Required]
-        public string Nome { get; set; }
-
-        [MaxLength(100)]
-        public string Descricao { get; set; }
-
-        [Required]
-        public string Localizacao { get; set; }
-
-        [Required]
-        public string Cidade { get; set; }
-
-        [Required]
-        public string Estado { get; set; }
-
+        public string Nome { get; set; } = null!;
+        public string Descricao { get; set; } = null!;
+        public string Localizacao { get; set; } = null!;
+        public string Cidade { get; set; } = null!;
+        public string Estado { get; set; } = null!;
         public DateTime DataInclusao { get; set; } = DateTime.Now;
     }
 }

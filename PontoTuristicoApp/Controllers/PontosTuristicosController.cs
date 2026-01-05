@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using PontoTuristicoApp.Data;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using PontoTuristicoApp.Models;
+using Microsoft.VisualBasic;
 
 namespace PontoTuristicoApp.Controllers
 {
@@ -20,17 +24,28 @@ namespace PontoTuristicoApp.Controllers
 
             return View(pontos);
         }
-    
+
         // GET: PontosTuristicos/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            using var httpClient = new HttpClient();
+
+            var response = await httpClient.GetStringAsync(
+                "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+            );
+
+            var estados = JsonSerializer.Deserialize<List<EstadoDto>>(response) ?? new List<EstadoDto>();
+
+            ViewBag.Estados = estados.OrderBy(e => e.Nome).ToList();
+
             return View();
         }
+
 
         // POST: PontosTuristicos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Models.PontoTuristico ponto)
+        public IActionResult Create(PontoTuristico ponto)
         {
             if (ModelState.IsValid)
             {
@@ -40,6 +55,27 @@ namespace PontoTuristicoApp.Controllers
             }
 
             return View(ponto);
-        } 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCidades(string estado)
+        {
+            if (string.IsNullOrWhiteSpace(estado))
+                return BadRequest();
+
+            using var httpClient = new HttpClient();
+
+            var response = await httpClient.GetStringAsync(
+                $"https://servicodados.ibge.gov.br/api/v1/localidades/estados/{estado}/municipios"
+            );
+
+            var cidades = JsonSerializer.Deserialize<List<CidadeDto>>(response)
+                          ?? new List<CidadeDto>();
+
+            return Json(
+                cidades.OrderBy(c => c.Nome).ToList()
+            );
+        }
+
     }
 }
