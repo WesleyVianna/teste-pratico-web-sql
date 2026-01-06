@@ -1,0 +1,19 @@
+@model PontoTuristicoApp.Models.PontoTuristico
+
+<h2>Excluir Ponto Turístico</h2>
+
+<p>Tem certeza que deseja excluir este ponto turístico?</p>
+
+<ul>
+    <li><strong>Nome:</strong> @Model.Nome</li>
+    <li><strong>Estado:</strong> @Model.Estado</li>
+    <li><strong>Cidade:</strong> @Model.Cidade</li>
+</ul>
+
+<form action="Delete" method="POST">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
