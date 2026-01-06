@@ -36,6 +36,7 @@ namespace PontoTuristicoApp.Controllers
 
             ViewBag.Estados = estados.OrderBy(e => e.Nome).ToList();
 
+            await CarregarEstadosAsync();
             return View();
         }
 
@@ -52,6 +53,7 @@ namespace PontoTuristicoApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            await CarregarEstadosAsync();
             return View(ponto);
         }
 
@@ -84,6 +86,21 @@ namespace PontoTuristicoApp.Controllers
 
             return View(ponto);
         }
+
+        private async Task CarregarEstadosAsync()
+        {
+            using var httpClient = new HttpClient();
+
+            var response = await httpClient.GetStringAsync(
+                "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+            );
+
+            var estados = JsonSerializer.Deserialize<List<EstadoDto>>(response)
+                          ?? new List<EstadoDto>();
+
+            ViewBag.Estados = estados.OrderBy(e => e.Nome).ToList();
+        }
+
 
     }
 }

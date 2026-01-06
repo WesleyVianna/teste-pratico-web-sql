@@ -28,12 +28,16 @@
         <select asp-for="Estado" id="estadoSelect">
             <option value="">Selecione</option>
 
-            @foreach (var estado in ViewBag.Estados)
+            @if (ViewBag.Estados != null)
             {
-                <option value="@estado.Sigla">
-                    @estado.Nome
-                </option>
+                foreach (var estado in ViewBag.Estados)
+                {
+                    <option value="@estado.Sigla">
+                        @estado.Nome
+                    </option>
+                }
             }
+
         </select>
         <span asp-validation-for="Estado"></span>
     </div>
@@ -53,44 +57,8 @@
 
 <a asp-action="Index">Voltar para a lista</a>
 
-
-@* <script>
-    document.getElementById('estadoSelect').addEventListener("change", function () {
-        console.log("Estado alterado:", this.value)
-    })
-
-    document.getElementById("estadoSelect").addEventListener("change", function () {
-        const estado = this.value;
-        const cidadeSelect = document.getElementById("cidadeSelect");
-
-        cidadeSelect.innerHTML = '<option value="">Carregando...</option>';
-
-        if (!estado) {
-            cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
-            return;
-        }
-
-        fetch(`/PontosTuristicos/GetCidades?estado=${estado}`)
-            .then(response => response.json())
-            .then(data => {
-                cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
-
-                data.forEach(cidade => {
-                    const option = document.createElement("option");
-                    option.value = cidade.nome;
-                    option.text = cidade.nome;
-                    cidadeSelect.appendChild(option);
-                });
-            })
-            .catch(() => {
-                cidadeSelect.innerHTML = '<option value="">Erro ao carregar cidades</option>';
-            });
-    });
-</script> *@
-
 <script>
     document.getElementById("estadoSelect").addEventListener("change", function () {
-        console.log("Estado alterado:", this.value);
 
         const estado = this.value;
         const cidadeSelect = document.getElementById("cidadeSelect");
