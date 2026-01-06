@@ -14,19 +14,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (!Model.Any())
         {
             <tr>
-                <td>@item.Nome</td>
-                <td>@item.Descricao</td>
-                <td>@item.Localizacao</td>
-                <td>@item.Estado</td>
-                <td>@item.Cidade</td>
-                <td>@item.DataInclusao.ToString("dd/MM/yyyy")</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-                </td>
+                <td colspan="7">Nenhum ponto turístico cadastrado.</td>
             </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nome</td>
+                    <td>@item.Descricao</td>
+                    <td>@item.Localizacao</td>
+                    <td>@item.Estado</td>
+                    <td>@item.Cidade</td>
+                    <td>@item.DataInclusao.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
