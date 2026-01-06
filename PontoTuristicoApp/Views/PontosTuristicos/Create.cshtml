@@ -54,7 +54,11 @@
 <a asp-action="Index">Voltar para a lista</a>
 
 
-<script>
+@* <script>
+    document.getElementById('estadoSelect').addEventListener("change", function () {
+        console.log("Estado alterado:", this.value)
+    })
+
     document.getElementById("estadoSelect").addEventListener("change", function () {
         const estado = this.value;
         const cidadeSelect = document.getElementById("cidadeSelect");
@@ -81,4 +85,42 @@
             .catch(() => {
                 cidadeSelect.innerHTML = '<option value="">Erro ao carregar cidades</option>';
             });
+    });
+</script> *@
+
+<script>
+    document.getElementById("estadoSelect").addEventListener("change", function () {
+        console.log("Estado alterado:", this.value);
+
+        const estado = this.value;
+        const cidadeSelect = document.getElementById("cidadeSelect");
+
+        cidadeSelect.innerHTML = '<option value="">Carregando...</option>';
+
+        if (!estado) {
+            cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
+            return;
+        }
+
+        fetch(`/PontosTuristicos/GetCidades?estado=${estado}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Cidades recebidas:", data);
+
+                cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
+
+                data.forEach(cidade => {
+                    const nome = cidade.nome || cidade.Nome;
+
+                    const option = document.createElement("option");
+                    option.value = nome;
+                    option.text = nome;
+                    cidadeSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error("Erro ao carregar cidades:", error);
+                cidadeSelect.innerHTML = '<option value="">Erro ao carregar cidades</option>';
+            });
+    });
 </script>

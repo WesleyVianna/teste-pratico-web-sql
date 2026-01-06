@@ -2,7 +2,7 @@
 
 <h2>Pontos Turísticos</h2>
 
-<table>
+<table class="tabela">
     <thead>
         <tr>
             <th>Nome</th>
@@ -17,11 +17,11 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Nome</td><br />
-                <td>@item.Descricao</td><br />
-                <td>@item.Localizacao</td><br />
-                <td>@item.Estado</td><br />
-                <td>@item.Cidade</td><br />
+                <td>@item.Nome</td>
+                <td>@item.Descricao</td>
+                <td>@item.Localizacao</td>
+                <td>@item.Estado</td>
+                <td>@item.Cidade</td>
                 <td>@item.DataInclusao.ToString("dd/MM/yyyy")</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>

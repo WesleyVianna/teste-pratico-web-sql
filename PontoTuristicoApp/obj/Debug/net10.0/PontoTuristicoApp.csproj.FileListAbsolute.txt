@@ -21,7 +21,6 @@ C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\rjsmcshtml.dswa.cach
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\scopedcss\bundle\PontoTuristicoApp.styles.css
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\scopedcss\projectbundle\PontoTuristicoApp.bundle.scp.css
-C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\compressed\a85rc1e4pp-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\compressed\xsm4c0aq6i-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\compressed\igo258ioxw-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\compressed\64j2bcg1fa-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -260,3 +259,4 @@ C:\Projetos\SinqiaTeste\PontoTuristicoApp\bin\Debug\net10.0\runtimes\win\lib\net
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\bin\Debug\net10.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\compressed\a85rc1e4pp-{0}-imsbyaypkr-imsbyaypkr.gz
