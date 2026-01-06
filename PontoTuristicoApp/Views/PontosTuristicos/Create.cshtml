@@ -3,6 +3,8 @@
 <h2>Cadastrar Ponto Turístico</h2>
 
 <form asp-action="Create" method="POST">
+    @Html.AntiForgeryToken()
+
     <div>
         <label>Nome</label><br />
         <input asp-for="Nome" />
@@ -79,5 +81,4 @@
             .catch(() => {
                 cidadeSelect.innerHTML = '<option value="">Erro ao carregar cidades</option>';
             });
-    });
 </script>

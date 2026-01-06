@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using PontoTuristicoApp.Data;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using PontoTuristicoApp.Models;
-using Microsoft.VisualBasic;
 
 namespace PontoTuristicoApp.Controllers
 {
@@ -45,7 +43,7 @@ namespace PontoTuristicoApp.Controllers
         // POST: PontosTuristicos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(PontoTuristico ponto)
+        public async Task<IActionResult> Create(PontoTuristico ponto)
         {
             if (ModelState.IsValid)
             {
