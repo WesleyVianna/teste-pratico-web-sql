@@ -6,17 +6,27 @@
     <thead>
         <tr>
             <th>Nome</th>
+            <th>Descrição</th>
             <th>Localização</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>Data de Inclusão</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Nome</td>
-                <td>@item.Localizacao</td>
+                <td>@item.Nome</td><br />
+                <td>@item.Descricao</td><br />
+                <td>@item.Localizacao</td><br />
+                <td>@item.Estado</td><br />
+                <td>@item.Cidade</td><br />
+                <td>@item.DataInclusao.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
-

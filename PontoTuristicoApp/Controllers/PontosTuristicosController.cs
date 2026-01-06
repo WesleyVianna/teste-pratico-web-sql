@@ -77,5 +77,15 @@ namespace PontoTuristicoApp.Controllers
             );
         }
 
+        public IActionResult Details(int id)
+        {
+            var ponto = _context.PontosTuristicos.FirstOrDefault(p => p.Id == id);
+
+            if (ponto == null)
+                return NotFound();
+
+            return View(ponto);
+        }
+
     }
 }
