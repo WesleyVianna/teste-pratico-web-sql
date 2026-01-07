@@ -1,7 +1,7 @@
 @model PontoTuristicoApp.Models.PontoTuristico
 
 @{
-    ViewData["Title"] = "Editar Ponto Turístico";
+    ViewData["Title"] = "Editar";
 }
 
 <h2>Editar Ponto Turístico</h2>
@@ -20,7 +20,7 @@
 
     <div class="mb-3">
         <label asp-for="Descricao" class="form-label"></label>
-        <input asp-for="Descricao" class="form-control" maxlength="100"></input>
+        <textarea asp-for="Descricao" class="form-control" maxlength="100"></textarea>
         <span asp-validation-for="Descricao" class="text-danger"></span>
     </div>
     <div class="mb-3">
@@ -35,8 +35,7 @@
             <option value="">Selecione</option>
             @foreach (var estado in ViewBag.Estados)
             {
-                <option value="@estado.Sigla"
-                        selected="@(estado.Sigla == Model.Estado)">
+                <option value="@estado.Sigla" selected="@(estado.Sigla == Model.Estado)">
                     @estado.Nome
                 </option>
             }
@@ -46,7 +45,7 @@
 
     <div class="mb-3">
         <label asp-for="Cidade" class="form-label"></label>
-        <select asp-for="Cidade" class="form-select" id="cidadeSelect">
+        <select asp-for="Cidade" class="form-select" id="cidadeSelect" disabled>
             <option value="@Model.Cidade">@Model.Cidade</option>
         </select>
         <span asp-validation-for="Cidade" class="text-danger"></span>
@@ -66,28 +65,56 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script>
-        document.getElementById("estadoSelect").addEventListener("change", function () {
-            const estado = this.value;
-            const cidadeSelect = document.getElementById("cidadeSelect");
+        const estadoSelect = document.getElementById("Estado")
+            || document.getElementById("estadoSelect");
+        const cidadeSelect = document.getElementById("Cidade")
+            || document.getElementById("cidadeSelect");
 
-            cidadeSelect.innerHTML = '<option value="">Carregando...</option>';
+        estadoSelect.addEventListener("change", async function () {
+            const estado = this.value;
+
+            cidadeSelect.innerHTML = "";
+            cidadeSelect.disabled = true;
 
             if (!estado) {
-                cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
+                cidadeSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
                 return;
             }
 
-            fetch(`/PontosTuristicos/GetCidades?estado=${estado}`)
-                .then(response => response.json())
-                .then(data => {
-                    cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
-                    data.forEach(cidade => {
-                        const option = document.createElement("option");
-                        option.value = cidade.nome;
-                        option.text = cidade.nome;
-                        cidadeSelect.appendChild(option);
-                    });
+            // Loading visual
+            cidadeSelect.innerHTML = '<option value="">🔄 Carregando cidades...</option>';
+
+            try {
+                const response = await fetch(`/PontosTuristicos/GetCidades?estado=${estado}`);
+
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar cidades");
+                }
+
+                const data = await response.json();
+
+                cidadeSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
+
+                if (data.length === 0) {
+                    cidadeSelect.innerHTML = '<option value="">Nenhuma cidade encontrada</option>';
+                    return;
+                }
+
+                data.forEach(cidade => {
+                    const option = document.createElement("option");
+                    option.value = cidade.nome;
+                    option.text = cidade.nome;
+                    cidadeSelect.appendChild(option);
                 });
+
+                cidadeSelect.disabled = false;
+
+            } catch (error) {
+                console.error(error);
+                cidadeSelect.innerHTML =
+                    '<option value="">❌ Erro ao carregar cidades</option>';
+            }
         });
     </script>
+
 }
