@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="~/PontoTuristicoApp.styles.css" asp-append-version="true" />
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow-sm">
             <div class="container">
@@ -24,8 +24,8 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="PontosTuristicos"
-                                asp-action="Index">Pontos Turísticos</a>
+                            <a class="nav-link" asp-area="" asp-controller="PontosTuristicos" asp-action="Index">Pontos
+                                Turísticos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="PontosTuristicos"
@@ -36,13 +36,13 @@
             </div>
         </nav>
     </header>
-    <div class="container mt-4">
-        <main role="main" class="pb-4 flex-fill">
+    <div class="container mt-4 flex-grow-1">
+        <main role="main" class="pb-4">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted mt-5">
+    <footer class="border-top footer text-muted">
         <div class="container text-center py-3">
             &copy; 2026 - PontoTuristicoApp
         </div>

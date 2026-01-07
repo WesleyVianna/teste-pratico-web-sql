@@ -31,14 +31,18 @@ body {
 }
 
 main {
-    flex: 1;
+    position: relative;
+    z-index: 2;
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
+    position: relative !important;
+    bottom: auto !important;
     width: 100%;
+    line-height: normal !important;
+    z-index: 1;
 }
+
 
 /* Form floating (Bootstrap) */
 .form-floating > .form-control-plaintext::placeholder,

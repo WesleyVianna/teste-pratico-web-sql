@@ -6,10 +6,11 @@
 
 <h2>Editar Ponto Turístico</h2>
 
-<form asp-action="Edit" method="POST" class="mt-3">
+<form asp-action="Edit" method="POST">
     @Html.AntiForgeryToken()
-
     <input type="hidden" asp-for="Id" />
+
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3"></div>
 
     <div class="mb-3">
         <label asp-for="Nome" class="form-label"></label>
@@ -19,24 +20,23 @@
 
     <div class="mb-3">
         <label asp-for="Descricao" class="form-label"></label>
-        <input asp-for="Descricao" class="form-control" />
+        <input asp-for="Descricao" class="form-control" maxlength="100"></input>
         <span asp-validation-for="Descricao" class="text-danger"></span>
     </div>
-
     <div class="mb-3">
         <label asp-for="Localizacao" class="form-label"></label>
-        <input asp-for="Localizacao" class="form-control" />
+        <input asp-for="Localizacao" class="form-control"></input>
         <span asp-validation-for="Localizacao" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Estado</label>
+        <label asp-for="Estado" class="form-label"></label>
         <select asp-for="Estado" class="form-select" id="estadoSelect">
             <option value="">Selecione</option>
-
             @foreach (var estado in ViewBag.Estados)
             {
-                <option value="@estado.Sigla">
+                <option value="@estado.Sigla"
+                        selected="@(estado.Sigla == Model.Estado)">
                     @estado.Nome
                 </option>
             }
@@ -45,61 +45,49 @@
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Cidade</label>
+        <label asp-for="Cidade" class="form-label"></label>
         <select asp-for="Cidade" class="form-select" id="cidadeSelect">
-            <option value="">Selecione a cidade</option>
+            <option value="@Model.Cidade">@Model.Cidade</option>
         </select>
         <span asp-validation-for="Cidade" class="text-danger"></span>
     </div>
+    <div class="d-flex gap-2 mt-4">
+        <button type="submit" class="btn btn-success">
+            💾 Salvar Alterações
+        </button>
 
-    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-
-    <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+        <a asp-action="Index" class="btn btn-danger">
+            ❌ Cancelar
+        </a>
+    </div>
 </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
     <script>
-        const estadoSelect = document.getElementById("estadoSelect");
-        const cidadeSelect = document.getElementById("cidadeSelect");
+        document.getElementById("estadoSelect").addEventListener("change", function () {
+            const estado = this.value;
+            const cidadeSelect = document.getElementById("cidadeSelect");
 
-        async function carregarCidades(estado, cidadeSelecionada = null) {
-            if (!estado) return;
+            cidadeSelect.innerHTML = '<option value="">Carregando...</option>';
 
-            cidadeSelect.innerHTML = '<option>Carregando...</option>';
-
-            const response = await fetch(`/PontosTuristicos/GetCidades?estado=${estado}`);
-            const cidades = await response.json();
-
-            cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
-
-            cidades.forEach(c => {
-                const option = document.createElement("option");
-                option.value = c.nome;
-                option.text = c.nome;
-
-                if (cidadeSelecionada && c.nome === cidadeSelecionada) {
-                    option.selected = true;
-                }
-
-                cidadeSelect.appendChild(option);
-            });
-        }
-
-        estadoSelect.addEventListener("change", () => {
-            carregarCidades(estadoSelect.value);
-        });
-
-        // Carrega as cidades automaticamente ao abrir a tela
-        window.addEventListener("load", () => {
-            const estadoAtual = "@Model.Estado";
-            const cidadeAtual = "@Model.Cidade";
-
-            if (estadoAtual) {
-                estadoSelect.value = estadoAtual;
-                carregarCidades(estadoAtual, cidadeAtual);
+            if (!estado) {
+                cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
+                return;
             }
+
+            fetch(`/PontosTuristicos/GetCidades?estado=${estado}`)
+                .then(response => response.json())
+                .then(data => {
+                    cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
+                    data.forEach(cidade => {
+                        const option = document.createElement("option");
+                        option.value = cidade.nome;
+                        option.text = cidade.nome;
+                        cidadeSelect.appendChild(option);
+                    });
+                });
         });
     </script>
 }
