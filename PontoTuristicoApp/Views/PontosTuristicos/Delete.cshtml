@@ -1,19 +1,50 @@
 @model PontoTuristicoApp.Models.PontoTuristico
+@{
+    ViewData["Title"] = "Excluir";
+}
 
-<h2>Excluir Ponto Turístico</h2>
+<h2 class="text-danger mb-4">Excluir Ponto Turístico</h2>
 
-<p>Tem certeza que deseja excluir este ponto turístico?</p>
+<div class="card border-danger shadow-sm">
+    <div class="card-body">
 
-<ul>
-    <li><strong>Nome:</strong> @Model.Nome</li>
-    <li><strong>Estado:</strong> @Model.Estado</li>
-    <li><strong>Cidade:</strong> @Model.Cidade</li>
-</ul>
+        <div class="alert alert-danger">
+            <strong>Atenção!</strong><br />
+            Esta ação <strong>não poderá ser desfeita</strong>.
+            Tem certeza que deseja excluir este ponto turístico?
+        </div>
 
-<form action="Delete" method="POST">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="Id" />
+        <dl class="row">
+            <dt class="col-sm-3">Nome</dt>
+            <dd class="col-sm-9">@Model.Nome</dd>
 
-    <button type="submit" class="btn btn-danger">Excluir</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-</form>
+            <dt class="col-sm-3">Descrição</dt>
+            <dd class="col-sm-9">@Model.Descricao</dd>
+
+            <dt class="col-sm-3">Localização</dt>
+            <dd class="col-sm-9">@Model.Localizacao</dd>
+
+            <dt class="col-sm-3">Cidade</dt>
+            <dd class="col-sm-9">@Model.Cidade</dd>
+
+            <dt class="col-sm-3">Estado</dt>
+            <dd class="col-sm-9">@Model.Estado</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post" class="mt-4">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger">
+                    🗑️ Sim, excluir
+                </button>
+
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
