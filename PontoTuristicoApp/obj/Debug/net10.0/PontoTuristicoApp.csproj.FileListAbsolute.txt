@@ -259,4 +259,4 @@ C:\Projetos\SinqiaTeste\PontoTuristicoApp\bin\Debug\net10.0\runtimes\win\lib\net
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\bin\Debug\net10.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Projetos\SinqiaTeste\PontoTuristicoApp\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\compressed\a85rc1e4pp-{0}-imsbyaypkr-imsbyaypkr.gz
+C:\Projetos\SinqiaTeste\PontoTuristicoApp\obj\Debug\net10.0\compressed\a85rc1e4pp-{0}-2obqfniq0z-2obqfniq0z.gz

@@ -21,13 +21,23 @@ html {
                 0 0 0 0.25rem #258cfb;
 }
 
-html {
-    position: relative;
-    min-height: 100%;
+html, body {
+    height: 100%;
 }
 
 body {
-    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 /* Form floating (Bootstrap) */
@@ -117,4 +127,14 @@ h2 {
 
 .btn + .btn {
     margin-left: 6px;
+}
+
+/* VALIDAÇÕES VISUAIS */
+
+.field-validation-error {
+  font-size: 0.85rem;
+}
+
+.input-validation-error {
+  border-color: #dc3545;
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PontoTuristicoApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+756ec940a0341f113fa35ae8b1c303b33d9538cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dddd839ca08eb7b497067d23aa03d60d93a36f80")]
 [assembly: System.Reflection.AssemblyProductAttribute("PontoTuristicoApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PontoTuristicoApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

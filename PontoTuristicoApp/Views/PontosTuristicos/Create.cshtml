@@ -5,63 +5,59 @@
 <form asp-action="Create" method="POST">
     @Html.AntiForgeryToken()
 
-    <div>
-        <label>Nome</label><br />
-        <input asp-for="Nome" />
-        <span asp-validation-for="Nome"></span>
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 
-    <div>
-        <label>Descrição</label><br />
-        <input asp-for="Descricao" maxlength="100" />
-        <span asp-validation-for="Descricao"></span>
+    <div class="mb-3">
+        <label asp-for="Descricao" class="form-label"></label>
+        <textarea asp-for="Descricao" class="form-control"></textarea>
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Localizacao" class="form-label"></label>
+        <input asp-for="Localizacao" class="form-control"></input>
+        <span asp-validation-for="Localizacao" class="text-danger"></span>
     </div>
 
-    <div>
-        <label>Localização</label><br />
-        <input asp-for="Localizacao" />
-        <span asp-validation-for="Localizacao"></span>
-    </div>
-
-    <div>
-        <label>Estado</label><br />
-        <select asp-for="Estado" id="estadoSelect">
-            <option value="">Selecione</option>
-
-            @if (ViewBag.Estados != null)
+    <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <select id="Estado" name="Estado" class="form-select">
+            <option value="">Selecione um estado</option>
+            @foreach (var estado in ViewBag.Estados)
             {
-                foreach (var estado in ViewBag.Estados)
-                {
-                    <option value="@estado.Sigla">
-                        @estado.Nome
-                    </option>
-                }
+                <option value="@estado.Sigla">@estado.Nome</option>
             }
-
         </select>
-        <span asp-validation-for="Estado"></span>
     </div>
 
-    <div>
-        <label>Cidade</label><br />
-        <select asp-for="Cidade" id="cidadeSelect">
-            <option value="">Selecione a cidade</option>
+    <div class="mb-3">
+        <label class="form-label">Cidade</label>
+        <select id="Cidade" name="Cidade" class="form-select">
+            <option value="">Selecione uma cidade</option>
         </select>
-        <span asp-validation-for="Cidade"></span>
     </div>
 
-    <br />
+    <div class="d-flex gap-2 mt-4">
+        <button type="submit" class="btn btn-success">
+            💾 Salvar
+        </button>
 
-    <button type="submit">Salvar</button>
+        <a asp-action="Index" class="btn btn-danger">
+            ❌ Cancelar
+        </a>
+    </div>
 </form>
 
-<a asp-action="Index">Voltar para a lista</a>
-
 <script>
-    document.getElementById("estadoSelect").addEventListener("change", function () {
+    document.getElementById("Estado").addEventListener("change", function () {
 
         const estado = this.value;
-        const cidadeSelect = document.getElementById("cidadeSelect");
+        const cidadeSelect = document.getElementById("Cidade");
 
         cidadeSelect.innerHTML = '<option value="">Carregando...</option>';
 
@@ -78,11 +74,9 @@
                 cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
 
                 data.forEach(cidade => {
-                    const nome = cidade.nome || cidade.Nome;
-
                     const option = document.createElement("option");
-                    option.value = nome;
-                    option.text = nome;
+                    option.value = cidade.nome;
+                    option.text = cidade.nome;
                     cidadeSelect.appendChild(option);
                 });
             })
@@ -92,3 +86,8 @@
             });
     });
 </script>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
