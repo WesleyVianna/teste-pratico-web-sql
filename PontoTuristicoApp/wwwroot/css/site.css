@@ -43,7 +43,6 @@ main {
     z-index: 1;
 }
 
-
 /* Form floating (Bootstrap) */
 .form-floating > .form-control-plaintext::placeholder,
 .form-floating > .form-control::placeholder {
@@ -141,4 +140,28 @@ h2 {
 
 .input-validation-error {
   border-color: #dc3545;
+}
+
+.display-5 {
+    letter-spacing: -0.5px;
+}
+
+.lead {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* DETAILS */
+
+.details.card {
+  font-size: 1.5rem;
+}
+
+.details.card h3 {
+  font-size: 1.6rem;
+}
+
+.details.card p {
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
