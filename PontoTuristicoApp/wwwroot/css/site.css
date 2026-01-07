@@ -91,8 +91,8 @@ h2 {
 /* Espaçamento */
 
 .navbar {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
 }
 
 /* Logo */
@@ -164,4 +164,33 @@ h2 {
 .details.card p {
   font-size: 1.05rem;
   line-height: 1.6;
+}
+
+/* Grupo com borda */
+.navbar .nav-group {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px; /* formato pill */
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Links dentro do grupo */
+.navbar .nav-group .nav-link {
+    padding: 4px 8px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Hover suave */
+.navbar .nav-group .nav-link:hover {
+    color: #e5e7eb;
+}
+
+/* Separador interno */
+.navbar .nav-group .separator {
+    width: 1px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
 }
