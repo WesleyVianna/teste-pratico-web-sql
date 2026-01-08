@@ -9,7 +9,7 @@ Projeto desenvolvido como teste prático, com foco em organização, clareza de 
 - .NET SDK 10.0.101
 - ASP.NET Core MVC
 - Entity Framework Core
-- MySQL
+- SQLite
 - Bootstrap
 - API do IBGE
 - HTML5, CSS3 e JavaScript
@@ -84,6 +84,29 @@ https://servicodados.ibge.gov.br/api/v1/localidades/estados/{UF}/municipios
 - Views — Interface com o usuário (Razor)
 - Data — Contexto do banco de dados (Entity Framework)
 - wwwroot — Arquivos estáticos (CSS, JS, imagens)
+
+📂 Estrutura do Repositório
+
+Além da aplicação web em ASP.NET Core MVC, este repositório contém pastas adicionais referentes aos testes práticos solicitados.
+
+🗄️ Teste Prático de Conhecimento em SQL
+
+Comandos SQL solicitados no teste:
+
+- SELECT
+- INSERT
+- UPDATE
+- DELETE
+
+Os comandos foram organizados de forma clara, seguindo o enunciado proposto, com foco em legibilidade e boas práticas em SQL.
+
+🧠 Teste Prático de Lógica
+
+Contém o arquivo referente ao teste de lógica sobre a troca de um pneu furado, com:
+
+- Resolução passo a passo dos problemas propostos
+
+Essas pastas foram adicionadas com o objetivo de centralizar todas as entregas do teste prático em um único repositório, facilitando a avaliação técnica.
 
 📌 Observações Finais
 
