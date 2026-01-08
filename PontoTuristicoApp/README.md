@@ -59,13 +59,21 @@ https://servicodados.ibge.gov.br/api/v1/localidades/estados/{UF}/municipios
 🧾 Funcionalidades Implementadas
 
 ✔️ Cadastro de Ponto Turístico
+
 ✔️ Listagem em formato de cards
+
 ✔️ Visualização de detalhes
+
 ✔️ Edição de registros
+
 ✔️ Exclusão com confirmação
+
 ✔️ Validações com DataAnnotations
+
 ✔️ Validações visuais com Bootstrap
+
 ✔️ Layout responsivo
+
 ✔️ Integração com API externa
 
 
