@@ -135,14 +135,14 @@ namespace PontoTuristicoApp.Controllers
         // POST: Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ponto = _context.PontosTuristicos.Find(id);
+            var ponto = await _context.PontosTuristicos.FindAsync(id);
 
             if (ponto != null)
             {
                 _context.PontosTuristicos.Remove(ponto);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
 
             return RedirectToAction(nameof(Index));
