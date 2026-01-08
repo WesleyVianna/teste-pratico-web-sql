@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PontoTuristicoApp.Data;
 using PontoTuristicoApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace PontoTuristicoApp.Controllers
@@ -8,19 +9,11 @@ namespace PontoTuristicoApp.Controllers
     public class PontosTuristicosController : Controller
     {
         private readonly AppDbContext _context;
+        private const int PageSize = 6; // quantidade de itens por página
 
         public PontosTuristicosController(AppDbContext context)
         {
             _context = context;
-        }
-
-        public IActionResult Index()
-        {
-            var pontos = _context.PontosTuristicos
-                .OrderByDescending(p => p.DataInclusao)
-                .ToList();
-
-            return View(pontos);
         }
 
         // GET: Create
@@ -146,6 +139,41 @@ namespace PontoTuristicoApp.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Index
+        public async Task<IActionResult> Index(string search, int page = 1)
+        {
+            // Query base
+            var query = _context.PontosTuristicos.AsQueryable();
+
+            // Aplicar filtro se houver termo de busca
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.Trim().ToLower();
+                query = query.Where(p =>
+                    p.Nome.ToLower().Contains(search) ||
+                    p.Descricao.ToLower().Contains(search) ||
+                    p.Localizacao.ToLower().Contains(search));
+            }
+
+            // Ordenar por Data de Inclusão decrescente
+            query = query.OrderByDescending(p => p.DataInclusao);
+
+            // Obter total de itens (para paginação)
+            var totalItems = await query.CountAsync();
+
+            // Obter itens da página atual
+            var pontos = await query
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            // Criar modelo de view com paginação
+            var model = new PaginatedList<PontoTuristico>(pontos, totalItems, page, PageSize);
+            ViewBag.Search = search; // manter termo de busca na view
+
+            return View(model);
         }
     }
 }

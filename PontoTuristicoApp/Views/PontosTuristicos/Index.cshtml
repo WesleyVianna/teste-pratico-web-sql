@@ -1,40 +1,33 @@
-@model IEnumerable<PontoTuristicoApp.Models.PontoTuristico>
-
+@model PontoTuristicoApp.Models.PaginatedList<PontoTuristicoApp.Models.PontoTuristico>
 @{
     ViewData["Title"] = "Listagem";
 }
 
 <h2>Pontos Turísticos</h2>
 
+<!-- ====================
+     FORMULÁRIO DE BUSCA
+==================== -->
+<form method="get" class="mb-4 d-flex justify-content-center">
+    <input type="text" name="search" value="@ViewBag.Search" class="form-control w-50" placeholder="Buscar por nome, descrição ou localização">
+    <button type="submit" class="btn btn-primary ms-3">🔍 Buscar</button>
+</form>
+
 <div class="row">
-    @foreach (var item in Model)
+    @foreach (var item in Model.Items)
     {
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm h-100">
                 <div class="card-body d-flex flex-column">
 
                     <h5 class="card-title">@item.Nome</h5>
-
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        @item.Cidade - @item.Estado
-                    </h6>
-
-                    <p class="card-text">
-                        @item.Descricao
-                    </p>
+                    <h6 class="card-subtitle mb-2 text-muted">@item.Cidade - @item.Estado</h6>
+                    <p class="card-text">@item.Descricao</p>
 
                     <div class="mt-auto">
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
-                            Detalhes
-                        </a>
-
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
-                            Editar
-                        </a>
-
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
-                            Excluir
-                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Detalhes</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Excluir</a>
                     </div>
 
                 </div>
@@ -42,3 +35,26 @@
         </div>
     }
 </div>
+
+<!-- Paginação -->
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" href="?search=@ViewBag.Search&page=@(Model.PageIndex - 1)">Anterior</a>
+            </li>
+
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" href="?search=@ViewBag.Search&page=@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" href="?search=@ViewBag.Search&page=@(Model.PageIndex + 1)">Próximo</a>
+            </li>
+        </ul>
+    </nav>
+}
