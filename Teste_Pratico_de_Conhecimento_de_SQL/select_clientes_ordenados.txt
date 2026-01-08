@@ -1,0 +1,6 @@
+/* 3 - Criar um comando SELECT que retorne TODOS os nomes e os códigos dos clientes ordenados por
+nome do cliente. */
+
+SELECT codigo_cliente, nome_cliente
+FROM clientes
+ORDER BY nome_cliente;

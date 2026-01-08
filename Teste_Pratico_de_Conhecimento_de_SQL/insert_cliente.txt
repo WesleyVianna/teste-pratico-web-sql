@@ -1,0 +1,13 @@
+/* 6 - Criar um comando INSERT na tabela de clientes de um registro qualquer com todos os campos da tabela. (valores livres) */
+
+
+INSERT INTO clientes (
+codigo_cliente,
+nome_cliente,
+cidades_codigo_cidade
+)
+VALUES (
+	999,
+    'Daniel',
+    10
+);
