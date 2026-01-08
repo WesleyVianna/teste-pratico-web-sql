@@ -111,8 +111,11 @@ Essas pastas foram adicionadas com o objetivo de centralizar todas as entregas d
 📌 Observações Finais
 
 O projeto segue o padrão MVC.
+
 Código organizado e de fácil manutenção.
+
 Uso de boas práticas de versionamento (Conventional Commits).
+
 Foco em clareza, organização e legibilidade para avaliação técnica.
 
 👤 Autor
