@@ -1,0 +1,19 @@
+Algoritmo de troca de pneu furado:
+	
+1. Estacione o carro em um local seguro e plano;
+2. Acione o freio de mão e coloque na primeira marcha;
+3. Coloque o triângulo de segurança a pelo menos 30 metros atrás do carro;
+4. Pegue o macaco, a chave de roda e o estepe;
+5. Solte ligeiramente os parafusos da roda com o pneu furado com a chave de roda;
+6. Posicione o macaco sob o ponto de elevação do carro;
+7. Levante o carro até que o pneu esteja fora do chão;
+8. Remova completamente os parafusos da roda;
+9. Retire o pneu furado;
+10. Coloque o estepe no lugar do pneu furado;
+11. Aperte os parafusos do estepe com a mão;
+12. Abaixe o carro com o macaco;
+13. Aperte os parafusos completamente com a chave de roda;
+14. Guarde o pneu furado, o macaco, o triângulo e a chave de roda;
+15. No primeiro posto de serviço consertar o pneu furado.
+16. Verifique a pressão do estepe antes de seguir viagem.
+17. Siga a viagem até o destino.
