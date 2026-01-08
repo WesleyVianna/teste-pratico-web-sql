@@ -23,6 +23,7 @@ html {
 
 html, body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -193,4 +194,15 @@ h2 {
     width: 1px;
     height: 20px;
     background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================
+   PADRONIZAR IMAGENS DOS CARDS
+   ========================== */
+.card-img-top {
+    height: 200px;   
+    width: 100%;        
+    object-fit: cover;   
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }

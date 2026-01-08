@@ -1,9 +1,104 @@
-﻿@using Microsoft.AspNetCore.Http.Features
-@{
-    ViewData["Title"] = "Home Page";
+﻿@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">
+        📍 Sistema de Pontos Turísticos
+    </h1>
+
+    <p class="lead text-muted mt-3">
+        Aplicação desenvolvida para cadastro, visualização e gerenciamento
+        de pontos turísticos, utilizando ASP.NET Core MVC, Entity Framework
+        e integração com a API do IBGE.
+    </p>
+
+</div>
+
+<section class="my-5">
+    <h3 class="text-center fw-semibold mb-4">
+        Veja alguns pontos turísticos!
+    </h3>
+
+    <div class="row justify-content-center g-4">
+
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm">
+                <img src="~/images/pontosturisticos/cristo-redentor.jpg" class="card-img-top"
+                    alt="Cristo Redentor">
+                <div class="card-body text-center p-2">
+                    <small class="fw-medium">Cristo Redentor - Rio de Janeiro</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm">
+                <img src="~/images/pontosturisticos/cataratas.jpg" class="card-img-top"
+                    alt="Cataratas">
+                <div class="card-body text-center p-2">
+                    <small class="fw-medium">Caratatas - Foz do Iguaçu</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm">
+                <img src="~/images/pontosturisticos/jardim-botanico.jpg" class="card-img-top"
+                    alt="Jardim Botânico de Curitiba">
+                <div class="card-body text-center p-2">
+                    <small class="fw-medium">Jardim Botânico - Curitiba </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm">
+                <img src="~/images/pontosturisticos/pao-de-acucar.jpg" class="card-img-top"
+                    alt="Pão de Açúcar">
+                <div class="card-body text-center p-2">
+                    <small class="fw-medium">Pão de Açúcar - Rio de Janeiro</small>
+                </div>
+            </div>
+        </div>
+</section>
+
+</div>
+
+<div class="row text-center mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">📌 Cadastro Completo</h5>
+                <p class="card-text text-muted">
+                    Cadastro de pontos turísticos com nome, descrição,
+                    localização, estado e cidade.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">🌎 Integração com IBGE</h5>
+                <p class="card-text text-muted">
+                    Estados e cidades carregados dinamicamente
+                    através da API oficial do IBGE.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">🛠️ CRUD Completo</h5>
+                <p class="card-text text-muted">
+                    Funcionalidades completas de criação, edição,
+                    visualização e exclusão de registros.
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
