@@ -22,13 +22,11 @@ namespace PontoTuristicoApp.Services
         {
             try
             {
-                // URL corrigida para obter todos os estados (UFs) ordenados por nome
                 var response = await _httpClient.GetStringAsync("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome");
                 return JsonSerializer.Deserialize<List<EstadoDto>>(response);
             }
             catch
             {
-                // Retorna null para sinalizar erro de integração na controller
                 return null; 
             }
         }
@@ -45,7 +43,6 @@ namespace PontoTuristicoApp.Services
             }
             catch
             {
-                // Retorna null para sinalizar erro de integração na controller
                 return null;
             }
         }

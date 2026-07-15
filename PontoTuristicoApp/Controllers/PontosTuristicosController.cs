@@ -48,11 +48,10 @@ namespace PontoTuristicoApp.Controllers
             if (string.IsNullOrWhiteSpace(estado))
                 return BadRequest("Estado não fornecido.");
 
-            var cidades = await _ibgeService.ObterCidadesAsync(estado);
+            var cidades = await _ibgeService.ObterCidadesAsync(estado)
+             ?? new List<CidadeDto>();
 
-            var cidadesOrdenadas = cidades.OrderBy(c => c.Nome).ToList();
-
-            return Json(cidadesOrdenadas);
+            return Json(cidades.OrderBy(c => c.Nome));
         }
 
         public async Task<IActionResult> Details(int id)
@@ -147,15 +146,19 @@ namespace PontoTuristicoApp.Controllers
                 .ToListAsync();
 
             var model = new PaginatedList<PontoTuristico>(pontos, totalItems, page, PageSize);
-            ViewBag.Search = search; 
+            ViewBag.Search = search;
 
             return View(model);
         }
 
         private async Task CarregarEstadosViewBagAsync()
         {
-            var estados = await _ibgeService.ObterEstadosAsync();
-            ViewBag.Estados = estados.OrderBy(e => e.Nome).ToList();
+            var estados = await _ibgeService.ObterEstadosAsync()
+                          ?? new List<EstadoDto>();
+
+            ViewBag.Estados = estados
+                .OrderBy(e => e.Nome)
+                .ToList();
         }
     }
 }
