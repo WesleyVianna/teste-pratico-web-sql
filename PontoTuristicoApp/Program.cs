@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using PontoTuristicoApp.Data;
+using PontoTuristicoApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Registrar o serviço do IBGE com HttpClient injetado corretamente
+builder.Services.AddHttpClient<IIbgeService, IbgeService>();
 
 var app = builder.Build();
 

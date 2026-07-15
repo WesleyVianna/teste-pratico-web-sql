@@ -1,25 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
 using PontoTuristicoApp.Data;
 using PontoTuristicoApp.Models;
+using PontoTuristicoApp.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 
 namespace PontoTuristicoApp.Controllers
 {
     public class PontosTuristicosController : Controller
     {
         private readonly AppDbContext _context;
-        private const int PageSize = 6; // quantidade de itens por página
+        private readonly IIbgeService _ibgeService;
+        private const int PageSize = 6;
 
-        public PontosTuristicosController(AppDbContext context)
+        public PontosTuristicosController(AppDbContext context, IIbgeService ibgeService)
         {
             _context = context;
+            _ibgeService = ibgeService;
         }
 
         // GET: Create
         public async Task<IActionResult> Create()
         {
-            await CarregarEstadosAsync();
+            await CarregarEstadosViewBagAsync();
             return View();
         }
 
@@ -30,7 +32,7 @@ namespace PontoTuristicoApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                await CarregarEstadosAsync();
+                await CarregarEstadosViewBagAsync();
                 return View(ponto);
             }
 
@@ -46,21 +48,13 @@ namespace PontoTuristicoApp.Controllers
             if (string.IsNullOrWhiteSpace(estado))
                 return BadRequest();
 
-            using var httpClient = new HttpClient();
-
-            var response = await httpClient.GetStringAsync(
-                $"https://servicodados.ibge.gov.br/api/v1/localidades/estados/{estado}/municipios"
-            );
-
-            var cidades = JsonSerializer.Deserialize<List<CidadeDto>>(response)
-                          ?? new List<CidadeDto>();
-
+            var cidades = await _ibgeService.ObterCidadesAsync(estado);
             return Json(cidades.OrderBy(c => c.Nome));
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var ponto = _context.PontosTuristicos.FirstOrDefault(p => p.Id == id);
+            var ponto = await _context.PontosTuristicos.FirstOrDefaultAsync(p => p.Id == id);
 
             if (ponto == null)
                 return NotFound();
@@ -76,7 +70,7 @@ namespace PontoTuristicoApp.Controllers
             if (ponto == null)
                 return NotFound();
 
-            await CarregarEstadosAsync();
+            await CarregarEstadosViewBagAsync();
             return View(ponto);
         }
 
@@ -90,7 +84,7 @@ namespace PontoTuristicoApp.Controllers
 
             if (!ModelState.IsValid)
             {
-                await CarregarEstadosAsync();
+                await CarregarEstadosViewBagAsync();
                 return View(ponto);
             }
 
@@ -100,24 +94,10 @@ namespace PontoTuristicoApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task CarregarEstadosAsync()
-        {
-            using var httpClient = new HttpClient();
-
-            var response = await httpClient.GetStringAsync(
-                "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-            );
-
-            var estados = JsonSerializer.Deserialize<List<EstadoDto>>(response)
-                          ?? new List<EstadoDto>();
-
-            ViewBag.Estados = estados.OrderBy(e => e.Nome).ToList();
-        }
-
         // GET: Delete
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var ponto = _context.PontosTuristicos.FirstOrDefault(p => p.Id == id);
+            var ponto = await _context.PontosTuristicos.FirstOrDefaultAsync(p => p.Id == id);
 
             if (ponto == null)
                 return NotFound();
@@ -144,10 +124,8 @@ namespace PontoTuristicoApp.Controllers
         // GET: Index
         public async Task<IActionResult> Index(string search, int page = 1)
         {
-            // Query base
-            var query = _context.PontosTuristicos.AsQueryable();
+            var query = _context.PontosTuristicos.AsNoTracking(); // AsNoTracking melhora performance em consultas de leitura
 
-            // Aplicar filtro se houver termo de busca
             if (!string.IsNullOrWhiteSpace(search))
             {
                 search = search.Trim().ToLower();
@@ -157,23 +135,24 @@ namespace PontoTuristicoApp.Controllers
                     p.Localizacao.ToLower().Contains(search));
             }
 
-            // Ordenar por Data de Inclusão decrescente
             query = query.OrderByDescending(p => p.DataInclusao);
 
-            // Obter total de itens (para paginação)
             var totalItems = await query.CountAsync();
-
-            // Obter itens da página atual
             var pontos = await query
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();
 
-            // Criar modelo de view com paginação
             var model = new PaginatedList<PontoTuristico>(pontos, totalItems, page, PageSize);
-            ViewBag.Search = search; // manter termo de busca na view
+            ViewBag.Search = search; 
 
             return View(model);
+        }
+
+        private async Task CarregarEstadosViewBagAsync()
+        {
+            var estados = await _ibgeService.ObterEstadosAsync();
+            ViewBag.Estados = estados.OrderBy(e => e.Nome).ToList();
         }
     }
 }
