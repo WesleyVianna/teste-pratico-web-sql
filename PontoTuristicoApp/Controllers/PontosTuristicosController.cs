@@ -46,10 +46,13 @@ namespace PontoTuristicoApp.Controllers
         public async Task<IActionResult> GetCidades(string estado)
         {
             if (string.IsNullOrWhiteSpace(estado))
-                return BadRequest();
+                return BadRequest("Estado não fornecido.");
 
             var cidades = await _ibgeService.ObterCidadesAsync(estado);
-            return Json(cidades.OrderBy(c => c.Nome));
+
+            var cidadesOrdenadas = cidades.OrderBy(c => c.Nome).ToList();
+
+            return Json(cidadesOrdenadas);
         }
 
         public async Task<IActionResult> Details(int id)
