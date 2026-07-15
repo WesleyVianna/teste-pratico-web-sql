@@ -2,7 +2,7 @@
 
 Aplicação web desenvolvida em ASP.NET Core MVC para cadastro, visualização e gerenciamento de pontos turísticos, com integração à API do IBGE para carregamento dinâmico de estados e cidades.
 
-Projeto desenvolvido como teste prático, com foco em organização, clareza de código e boas práticas de desenvolvimento.
+O projeto foi desenvolvido como parte de um teste prático, priorizando organização, clareza de código, separação de responsabilidades e boas práticas de desenvolvimento.
 
 # 🛠️ **Tecnologias Utilizadas**
 
@@ -34,15 +34,15 @@ dotnet run
 ```bash
 http://localhost:5000
 ```
-(ou a porta exibida no terminal)
+(Ou utilize a porta informada no terminal durante a execução da aplicação.)
 
 
 ## 🌎 **Integração com a API do IBGE**
 
 A aplicação consome a API oficial do IBGE para:
 
-- Listar estados brasileiros
-- Carregar cidades dinamicamente conforme o estado selecionado
+- Listar os estados brasileiros.
+- Carregar cidades dinamicamente conforme o estado selecionado.
 
 **Endpoints utilizados**
 
@@ -58,55 +58,33 @@ https://servicodados.ibge.gov.br/api/v1/localidades/estados/{UF}/municipios
 
 🧾 Funcionalidades Implementadas
 
-✔️ Cadastro de Ponto Turístico
+✔️ Cadastro de Ponto Turístico;
 
-✔️ Listagem em formato de cards
+✔️ Listagem em formato de cards;
 
-✔️ Visualização de detalhes
+✔️ Visualização de detalhes;
 
-✔️ Edição de registros
+✔️ Edição de registros;
 
-✔️ Exclusão com confirmação
+✔️ Exclusão com confirmação;
 
-✔️ Validações com DataAnnotations
+✔️ Validações com DataAnnotations;
 
-✔️ Validações visuais com Bootstrap
+✔️ Validações visuais com Bootstrap;
 
-✔️ Layout responsivo
+✔️ Layout responsivo;
 
-✔️ Integração com API externa
+✔️ Integração com a API do IBGE;
 
 
 🗂️ Estrutura do Projeto
 
-- Controllers — Controle das requisições e regras de negócio
-- Models — Entidades e validações
-- Views — Interface com o usuário (Razor)
-- Data — Contexto do banco de dados (Entity Framework)
-- wwwroot — Arquivos estáticos (CSS, JS, imagens)
+- Controllers — Responsáveis pelo processamento das requisições e controle do fluxo da aplicação;
+- Models — Contêm as entidades e validações da aplicação;
+- Views — Responsáveis pela interface com o usuário utilizando Razor;
+- Data — Contexto do banco de dados utilizando Entity Framework Core;
+- wwwroot — Arquivos estáticos, como CSS, JavaScript e imagens.
 
-📂 Estrutura do Repositório
-
-Além da aplicação web em ASP.NET Core MVC, este repositório contém pastas adicionais referentes aos testes práticos solicitados.
-
-🗄️ Teste Prático de Conhecimento em SQL
-
-Comandos SQL solicitados no teste:
-
-- SELECT
-- INSERT
-- UPDATE
-- DELETE
-
-Os comandos foram organizados de forma clara, seguindo o enunciado proposto, com foco em legibilidade e boas práticas em SQL.
-
-🧠 Teste Prático de Lógica
-
-Contém o arquivo referente ao teste de lógica sobre a troca de um pneu furado, com:
-
-- Resolução passo a passo dos problemas propostos
-
-Essas pastas foram adicionadas com o objetivo de centralizar todas as entregas do teste prático em um único repositório, facilitando a avaliação técnica.
 
 📌 Observações Finais
 
