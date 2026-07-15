@@ -18,14 +18,12 @@ namespace PontoTuristicoApp.Controllers
             _ibgeService = ibgeService;
         }
 
-        // GET: Create
         public async Task<IActionResult> Create()
         {
             await CarregarEstadosViewBagAsync();
             return View();
         }
 
-        // POST: Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PontoTuristico ponto)
@@ -64,7 +62,6 @@ namespace PontoTuristicoApp.Controllers
             return View(ponto);
         }
 
-        // GET: Edit
         public async Task<IActionResult> Edit(int id)
         {
             var ponto = await _context.PontosTuristicos.FindAsync(id);
@@ -76,7 +73,6 @@ namespace PontoTuristicoApp.Controllers
             return View(ponto);
         }
 
-        // POST: Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PontoTuristico ponto)
@@ -96,7 +92,6 @@ namespace PontoTuristicoApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Delete
         public async Task<IActionResult> Delete(int id)
         {
             var ponto = await _context.PontosTuristicos.FirstOrDefaultAsync(p => p.Id == id);
@@ -107,7 +102,6 @@ namespace PontoTuristicoApp.Controllers
             return View(ponto);
         }
 
-        // POST: Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -123,10 +117,9 @@ namespace PontoTuristicoApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Index
         public async Task<IActionResult> Index(string search, int page = 1)
         {
-            var query = _context.PontosTuristicos.AsNoTracking(); // AsNoTracking melhora performance em consultas de leitura
+            var query = _context.PontosTuristicos.AsNoTracking(); 
 
             if (!string.IsNullOrWhiteSpace(search))
             {

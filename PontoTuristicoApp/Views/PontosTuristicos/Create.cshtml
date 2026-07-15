@@ -24,7 +24,7 @@
     </div>
     <div class="mb-3">
         <label asp-for="Localizacao" class="form-label"></label>
-        <input asp-for="Localizacao" class="form-control"></input>
+        <input asp-for="Localizacao" class="form-control" />
         <span asp-validation-for="Localizacao" class="text-danger"></span>
     </div>
 
@@ -74,7 +74,6 @@
             return;
         }
 
-        // Loading visual
         cidadeSelect.innerHTML = '<option value="">🔄 Carregando cidades...</option>';
 
         try {

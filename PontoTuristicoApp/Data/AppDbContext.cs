@@ -16,7 +16,6 @@ namespace PontoTuristicoApp.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Cria índices para acelerar as buscas na listagem
             modelBuilder.Entity<PontoTuristico>()
                 .HasIndex(p => p.Nome);
 
