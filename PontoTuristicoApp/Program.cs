@@ -12,7 +12,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Registrar o serviço do IBGE com HttpClient injetado corretamente
-builder.Services.AddHttpClient<IIbgeService, IbgeService>();
+builder.Services.AddHttpClient<IIbgeService, IbgeService>(client =>
+{
+    var baseUrl = builder.Configuration["IbgeApi:BaseUrl"];
+    client.BaseAddress = new Uri(baseUrl);
+});
 
 var app = builder.Build();
 

@@ -11,5 +11,17 @@ namespace PontoTuristicoApp.Data
         }
 
         public DbSet<PontoTuristico> PontosTuristicos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Cria índices para acelerar as buscas na listagem
+            modelBuilder.Entity<PontoTuristico>()
+                .HasIndex(p => p.Nome);
+
+            modelBuilder.Entity<PontoTuristico>()
+                .HasIndex(p => p.Cidade);
+        }
     }
 }

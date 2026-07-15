@@ -5,8 +5,8 @@ namespace PontoTuristicoApp.Services
 {
     public interface IIbgeService
     {
-        Task<List<EstadoDto>> ObterEstadosAsync();
-        Task<List<CidadeDto>> ObterCidadesAsync(string estadoSigla);
+        Task<List<EstadoDto>?> ObterEstadosAsync();
+        Task<List<CidadeDto>?> ObterCidadesAsync(string estadoSigla);
     }
 
     public class IbgeService : IIbgeService
@@ -18,20 +18,22 @@ namespace PontoTuristicoApp.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<EstadoDto>> ObterEstadosAsync()
+        public async Task<List<EstadoDto>?> ObterEstadosAsync()
         {
             try
             {
-                var response = await _httpClient.GetStringAsync("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
-                return JsonSerializer.Deserialize<List<EstadoDto>>(response) ?? new List<EstadoDto>();
+                // URL corrigida para obter todos os estados (UFs) ordenados por nome
+                var response = await _httpClient.GetStringAsync("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome");
+                return JsonSerializer.Deserialize<List<EstadoDto>>(response);
             }
             catch
             {
-                return new List<EstadoDto>();
+                // Retorna null para sinalizar erro de integração na controller
+                return null; 
             }
         }
 
-        public async Task<List<CidadeDto>> ObterCidadesAsync(string estadoSigla)
+        public async Task<List<CidadeDto>?> ObterCidadesAsync(string estadoSigla)
         {
             if (string.IsNullOrWhiteSpace(estadoSigla))
                 return new List<CidadeDto>();
@@ -39,11 +41,12 @@ namespace PontoTuristicoApp.Services
             try
             {
                 var response = await _httpClient.GetStringAsync($"https://servicodados.ibge.gov.br/api/v1/localidades/estados/{estadoSigla}/municipios");
-                return JsonSerializer.Deserialize<List<CidadeDto>>(response) ?? new List<CidadeDto>();
+                return JsonSerializer.Deserialize<List<CidadeDto>>(response);
             }
             catch
             {
-                return new List<CidadeDto>();
+                // Retorna null para sinalizar erro de integração na controller
+                return null;
             }
         }
     }
