@@ -31,11 +31,11 @@
 
     <div class="mb-3">
         <label asp-for="Estado" class="form-label"></label>
-        <select asp-for="Estado" class="form-select" id="estadoSelect">
+        <select asp-for="Estado" class="form-select" id="Estado">
             <option value="">Selecione</option>
             @foreach (var estado in ViewBag.Estados)
             {
-                <option value="@estado.Sigla" selected="@(estado.Sigla == Model.Estado)">
+                <option value="@estado.Sigla">
                     @estado.Nome
                 </option>
             }
@@ -45,7 +45,7 @@
 
     <div class="mb-3">
         <label asp-for="Cidade" class="form-label"></label>
-        <select asp-for="Cidade" class="form-select" id="cidadeSelect" disabled>
+        <select asp-for="Cidade" class="form-select" id="Cidade" disabled>
             <option value="@Model.Cidade">@Model.Cidade</option>
         </select>
         <span asp-validation-for="Cidade" class="text-danger"></span>
@@ -65,10 +65,8 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script>
-        const estadoSelect = document.getElementById("Estado")
-            || document.getElementById("estadoSelect");
-        const cidadeSelect = document.getElementById("Cidade")
-            || document.getElementById("cidadeSelect");
+        const estadoSelect = document.getElementById("Estado");
+        const cidadeSelect = document.getElementById("Cidade");
 
         estadoSelect.addEventListener("change", async function () {
             const estado = this.value;
@@ -81,7 +79,6 @@
                 return;
             }
 
-            // Loading visual
             cidadeSelect.innerHTML = '<option value="">🔄 Carregando cidades...</option>';
 
             try {
@@ -111,10 +108,8 @@
 
             } catch (error) {
                 console.error(error);
-                cidadeSelect.innerHTML =
-                    '<option value="">❌ Erro ao carregar cidades</option>';
+                cidadeSelect.innerHTML = '<option value="">❌ Erro ao carregar cidades</option>';
             }
         });
     </script>
-
 }
